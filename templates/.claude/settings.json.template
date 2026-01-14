@@ -1,0 +1,133 @@
+{
+  "permissions": {
+    "allow": [
+      "// === 빌드 도구 ===",
+      "Bash(./gradlew:*)",
+      "Bash(gradle:*)",
+      "Bash(npm:*)",
+      "Bash(yarn:*)",
+      "Bash(pnpm:*)",
+      "Bash(mvn:*)",
+
+      "// === Git 명령어 (안전한 것만) ===",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+
+      "// === 파일 탐색 ===",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+
+      "// === 도구 버전 확인 ===",
+      "Bash(java -version:*)",
+      "Bash(node -v:*)",
+      "Bash(python --version:*)",
+
+      "// === Docker (선택) ===",
+      "Bash(docker compose:*)",
+      "Bash(docker-compose:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+
+      "// === 파일 읽기 ===",
+      "Read(**/src/**)",
+      "Read(**/build.gradle)",
+      "Read(**/pom.xml)",
+      "Read(**/package.json)",
+      "Read(settings.gradle)",
+      "Read(**/*.md)",
+      "Read(.claude/**)",
+      "Read(.github/**)",
+      "Read(**/docs/**)",
+
+      "// === 파일 편집 ===",
+      "Edit(**/src/**)",
+      "Edit(**/build.gradle)",
+      "Edit(**/pom.xml)",
+      "Edit(**/*.yml)",
+      "Edit(**/*.yaml)",
+      "Edit(**/*.md)",
+
+      "// === 파일 생성 ===",
+      "Write(**/src/**)",
+      "Write(**/docs/**)",
+      "Write(.github/**)",
+
+      "// === 웹 검색 (문서 사이트) ===",
+      "WebFetch(domain:docs.spring.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(domain:react.dev)"
+    ],
+    "deny": [
+      "// === 위험한 명령어 ===",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Bash(chmod 777:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+
+      "// === 민감한 파일 보호 ===",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/secrets/**)",
+      "Read(**/*secret*)",
+      "Read(**/*credential*)",
+      "Read(**/application-prod.yml)",
+      "Read(**/application-production.yml)",
+
+      "// === Git 내부 파일 보호 ===",
+      "Edit(.git/**)",
+      "Edit(.env*)",
+      "Write(.env*)"
+    ]
+  },
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/pre-command-check.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/post-edit-check.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/post-edit-check.sh"
+          }
+        ]
+      }
+    ]
+  },
+
+  "env": {
+    "NODE_ENV": "development",
+    "CLAUDE_PROJECT_DIR": "."
+  }
+}

@@ -1,0 +1,72 @@
+---
+description: Review code changes for quality, security, and conventions
+allowed-tools: Read, Grep, Glob, Bash
+argument-hint: [target] staged|HEAD|[commit-hash]|[file-path]
+---
+
+# Code Review Command
+
+코드 리뷰 명령어입니다.
+
+## Current Status
+
+- Branch: !`git branch --show-current`
+- Changes: !`git status --short | wc -l` files
+
+## Target
+
+Review target: $ARGUMENTS (default: staged changes)
+
+## Instructions
+
+1. 리뷰 대상 코드 확인
+   - staged: `git diff --cached`
+   - HEAD: `git diff HEAD~1`
+   - 특정 파일: 해당 파일 읽기
+2. 다음 관점에서 검토:
+   - 아키텍처 규칙 준수
+   - 코딩 컨벤션
+   - 보안 취약점
+   - 성능 이슈
+   - 테스트 커버리지
+3. 구체적인 피드백 제공
+
+## Review Checklist
+
+### Architecture
+- [ ] 레이어 의존성 규칙 준수
+- [ ] 적절한 추상화 수준
+- [ ] 단일 책임 원칙
+
+### Code Quality
+- [ ] 네이밍 컨벤션 준수 (@.claude/CONVENTIONS.md)
+- [ ] 중복 코드 없음
+- [ ] 복잡도 적절
+
+### Security
+- [ ] 입력 검증
+- [ ] SQL Injection 방지
+- [ ] 민감 정보 노출 없음
+- [ ] 하드코딩된 시크릿 없음
+
+### Testing
+- [ ] 새 코드에 테스트 존재
+- [ ] 엣지 케이스 테스트
+
+## Output Format
+
+```markdown
+## Review: [파일/커밋]
+
+### 🔴 Critical
+- [라인 N] 이슈 설명
+
+### 🟡 Warning
+- [라인 N] 이슈 설명
+
+### 🟢 Suggestion
+- [라인 N] 개선 제안
+
+### ✅ Good
+- 잘된 점
+```

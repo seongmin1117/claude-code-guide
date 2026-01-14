@@ -1,0 +1,52 @@
+---
+description: Build project with [빌드 도구]
+allowed-tools: Bash, Read, TodoWrite
+argument-hint: [task] build|test|check|clean
+---
+
+# Build Command
+
+프로젝트 빌드 명령어입니다.
+
+## Current Status
+
+- Branch: !`git branch --show-current`
+- [언어 버전]: !`java -version 2>&1 | head -1` 또는 !`node -v`
+
+## Task
+
+Build task: $ARGUMENTS (default: build)
+
+## Instructions
+
+1. 지정된 task로 빌드 실행
+2. 빌드 실패 시 에러 분석 및 해결 방안 제시
+3. 테스트 실패 시 실패한 테스트 상세 분석
+4. 성공 시 결과 요약
+
+## Commands
+
+```bash
+# Gradle (Java/Kotlin)
+./gradlew $ARGUMENTS --console=plain
+
+# Maven (Java)
+mvn $ARGUMENTS
+
+# npm (Node.js)
+npm run $ARGUMENTS
+
+# yarn
+yarn $ARGUMENTS
+```
+
+빌드 후 결과를 간결하게 보고해주세요.
+
+## Common Tasks
+
+| Task | Description |
+|------|-------------|
+| `build` | 전체 빌드 |
+| `test` | 테스트 실행 |
+| `clean` | 빌드 캐시 삭제 |
+| `check` | 린트 + 테스트 |

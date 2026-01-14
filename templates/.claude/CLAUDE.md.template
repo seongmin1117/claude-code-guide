@@ -1,0 +1,155 @@
+# [프로젝트명] - Project Context
+
+> **새 세션 시작 시**: 반드시 `.claude/PROGRESS.md`를 먼저 읽어서 현재 진행 상황 파악
+
+## Quick Start
+
+```bash
+# 1. 진행 상황 확인
+cat .claude/PROGRESS.md
+
+# 2. 의존성 설치 / 빌드
+[빌드 명령어]
+
+# 3. 테스트 실행
+[테스트 명령어]
+
+# 4. 서버 실행
+[실행 명령어]
+```
+
+---
+
+## Project Overview
+
+| Item | Value |
+|------|-------|
+| **Project** | [프로젝트명] |
+| **Stack** | [기술 스택] |
+| **Language** | [언어 버전] |
+| **Package** | [패키지명] |
+| **Purpose** | [프로젝트 목적 한줄 요약] |
+
+---
+
+## Project Structure
+
+```
+project-root/
+├── .claude/                    # Claude Code 컨텍스트
+│   ├── CLAUDE.md               # 프로젝트 개요 (이 파일)
+│   ├── PROGRESS.md             # 진행 상황 추적
+│   └── CONVENTIONS.md          # 코딩 규칙
+├── src/
+│   ├── main/
+│   │   ├── [소스 디렉토리 구조]
+│   │   └── resources/
+│   └── test/
+├── docs/                       # 문서
+├── [빌드 설정 파일]
+└── README.md
+```
+
+---
+
+## Current Status
+
+| 항목 | 상태 |
+|------|------|
+| **Phase** | [현재 Phase] 🔄 |
+| **Tests** | [테스트 수]개 ✅ |
+| **Branch** | `[브랜치명]` |
+
+**마지막 완료**: [마지막 완료 작업]
+**현재 작업**: [현재 진행 중인 작업]
+**상세 진행 상황**: `.claude/PROGRESS.md` 참조
+
+---
+
+## Architecture
+
+```
+[아키텍처 다이어그램 또는 레이어 구조]
+
+예시 (Clean Architecture):
+src/main/java/com/example/
+├── domain/           # Entities, Repositories, Domain Services
+├── application/      # Use Cases, DTOs
+├── infrastructure/   # Config, External Clients
+├── api/              # Controllers, Filters
+└── common/           # Shared Utilities
+```
+
+**Layer Rules**:
+- `domain` → 외부 의존성 없음 (순수 비즈니스 로직)
+- `application` → `domain`만 의존
+- `infrastructure` → `domain` 인터페이스 구현
+- `api` → `application` 의존
+
+---
+
+## Key Technologies
+
+### [주요 기술 1] 주의사항
+- [주의사항 1]
+- [주의사항 2]
+
+### [주요 기술 2] 특징
+- [특징 1]
+- [특징 2]
+
+---
+
+## Essential Files
+
+| Purpose | File |
+|---------|------|
+| **Progress Tracker** | `.claude/PROGRESS.md` |
+| **Conventions** | `.claude/CONVENTIONS.md` |
+| **API Documentation** | `docs/API.md` |
+| **Architecture Guide** | `docs/ARCHITECTURE.md` |
+
+---
+
+## Commit Convention
+
+```bash
+# Format
+<type>(<scope>): <subject>
+
+# Types: feat, fix, refactor, docs, test, chore, perf
+
+# Example
+feat(auth): 로그인 기능 구현
+fix(user): 사용자 조회 버그 수정
+```
+
+**상세 컨벤션**: `.claude/CONVENTIONS.md` 참조
+
+---
+
+## Modules (멀티 모듈인 경우)
+
+### [모듈 1]
+- **역할**: [역할 설명]
+- **빌드**: `./gradlew :module1:build`
+
+### [모듈 2]
+- **역할**: [역할 설명]
+- **빌드**: `./gradlew :module2:build`
+
+---
+
+## Environment
+
+| Profile | 용도 | 설정 |
+|---------|------|------|
+| `dev` | 로컬 개발 | [설명] |
+| `test` | 테스트 | [설명] |
+| `prod` | 프로덕션 | [설명] |
+
+---
+
+## Notes
+
+[추가 참고사항, 주의사항 등]

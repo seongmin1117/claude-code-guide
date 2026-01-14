@@ -1,0 +1,314 @@
+# [프로젝트명] - Conventions Guide
+
+## Git Commit Convention
+
+### Format
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+### Types
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `feat` | New feature | `feat(auth): add login feature` |
+| `fix` | Bug fix | `fix(user): resolve query issue` |
+| `refactor` | Code refactoring | `refactor(common): extract utility` |
+| `docs` | Documentation | `docs: update API documentation` |
+| `test` | Tests | `test(auth): add integration tests` |
+| `chore` | Build/config | `chore: update dependencies` |
+| `perf` | Performance | `perf(cache): optimize lookup` |
+| `security` | Security fix | `security(crypto): upgrade encryption` |
+
+### Scopes
+
+| Scope | Description |
+|-------|-------------|
+| `common` | Common utilities |
+| `domain` | Domain layer |
+| `api` | API controllers |
+| `infra` | Infrastructure |
+| `[feature]` | Feature-specific scope |
+
+### Language
+
+> 자연스러운 한국어 또는 영어 사용 (프로젝트 컨벤션에 따름)
+
+```bash
+# 한국어 예시
+feat(auth): 로그인 기능 구현
+fix(user): 사용자 조회 버그 수정
+
+# 영어 예시
+feat(auth): implement login feature
+fix(user): resolve user query bug
+```
+
+---
+
+## Naming Conventions
+
+### Classes
+
+| Type | Convention | Example |
+|------|------------|---------|
+| Entity | `{Name}Entity` or `{Name}` | `UserEntity`, `User` |
+| Repository | `{Entity}Repository` | `UserRepository` |
+| Service | `{Domain}Service` | `AuthService` |
+| Controller | `{Domain}Controller` | `AuthController` |
+| DTO Request | `{Action}Request` | `LoginRequest` |
+| DTO Response | `{Action}Response` | `LoginResponse` |
+| Utility | `{Purpose}Utils` | `StringUtils` |
+
+### Variables & Methods
+
+```java
+// Variables: camelCase
+private String userName;
+private int maxRetryCount;
+
+// Methods: camelCase, 동사로 시작
+public User findByEmail(String email) { }
+public void updatePassword(String newPassword) { }
+public boolean isActive() { }
+```
+
+### Packages
+
+```
+com.example.project.{layer}.{domain}
+
+예시:
+com.example.project.domain.user
+com.example.project.application.auth
+com.example.project.infrastructure.config
+com.example.project.api.controller
+```
+
+---
+
+## Code Patterns
+
+### Service Pattern
+
+```java
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+
+    private final UserRepository userRepository;
+
+    @Transactional
+    public LoginResponse login(LoginRequest request) {
+        // 1. 입력 검증
+        validate(request);
+
+        // 2. 비즈니스 로직
+        var user = findUser(request);
+
+        // 3. 결과 반환
+        return LoginResponse.from(user);
+    }
+}
+```
+
+### Controller Pattern
+
+```java
+@Slf4j
+@RestController
+@RequestMapping("/api/v1/auth")
+@RequiredArgsConstructor
+public class AuthController {
+
+    private final AuthService authService;
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<LoginResponse>> login(
+            @Valid @RequestBody LoginRequest request) {
+        log.debug("Login request: {}", request.email());
+        return ResponseEntity.ok(
+            ApiResponse.success(authService.login(request))
+        );
+    }
+}
+```
+
+### DTO Pattern (Java Record 권장)
+
+```java
+public record LoginRequest(
+    @NotBlank @Email String email,
+    @NotBlank @Size(min = 8) String password
+) {
+    public static LoginRequest of(String email, String password) {
+        return new LoginRequest(email, password);
+    }
+}
+```
+
+### Utility Class Pattern
+
+```java
+public final class StringUtils {
+
+    private StringUtils() {} // 인스턴스화 방지
+
+    public static boolean isEmpty(String value) {
+        return value == null || value.isBlank();
+    }
+}
+```
+
+---
+
+## Exception Handling
+
+### 예외 메시지 패턴
+
+```java
+// Null 체크
+throw new IllegalArgumentException("User cannot be null");
+
+// 존재하지 않음
+throw new NotFoundException("User not found: " + userId);
+
+// 이미 존재
+throw new DuplicateException("Email already exists: " + email);
+
+// 권한 없음
+throw new UnauthorizedException("Access denied");
+```
+
+---
+
+## Test Patterns
+
+### Test Class Naming
+
+```
+{TargetClass}Test.java           # 단위 테스트
+{TargetClass}IntegrationTest.java # 통합 테스트
+```
+
+### Test Method Naming
+
+```java
+@Test
+void should_ReturnUser_When_ValidEmail() { }
+
+// 또는
+@Test
+void shouldReturnUser_whenValidEmail() { }
+
+// 또는 한국어
+@Test
+@DisplayName("유효한 이메일로 사용자 조회 시 성공")
+void findByEmail_success() { }
+```
+
+### Test Structure (Given-When-Then)
+
+```java
+@Test
+@DisplayName("유효한 요청으로 로그인 시 성공")
+void login_success() {
+    // given
+    var request = LoginRequest.of("test@example.com", "password123");
+    var user = createTestUser();
+    given(userRepository.findByEmail(anyString())).willReturn(Optional.of(user));
+
+    // when
+    var result = authService.login(request);
+
+    // then
+    assertThat(result).isNotNull();
+    assertThat(result.email()).isEqualTo("test@example.com");
+}
+```
+
+---
+
+## Lombok Usage
+
+| Layer | Annotations |
+|-------|-------------|
+| Service | `@Slf4j` + `@RequiredArgsConstructor` |
+| Controller | `@Slf4j` + `@RequiredArgsConstructor` |
+| Entity | `@Getter` + `@NoArgsConstructor(access = PROTECTED)` + `@Builder` |
+| DTO | Java Record 사용 (Lombok 불필요) |
+| Utility | Lombok 사용 안함 |
+
+---
+
+## Comment Style
+
+### JavaDoc
+
+```java
+/**
+ * 사용자 인증을 처리하는 서비스.
+ *
+ * @since 1.0.0
+ */
+@Service
+public class AuthService { }
+
+/**
+ * 이메일로 사용자를 조회한다.
+ *
+ * @param email 사용자 이메일
+ * @return 사용자 정보
+ * @throws NotFoundException 사용자가 없는 경우
+ */
+public User findByEmail(String email) { }
+```
+
+### 코드 주석 원칙
+
+1. **"왜"를 설명** - What은 코드가 보여줌
+2. **복잡한 로직 설명** - 이해하기 어려운 부분만
+3. **TODO/FIXME** - 추후 작업 표시
+
+```java
+// TODO: 캐시 적용 필요
+// FIXME: N+1 문제 해결 필요
+// NOTE: 외부 API 호출 시 타임아웃 3초
+```
+
+---
+
+## Security Checklist
+
+- [ ] API 키, 비밀번호 하드코딩 없음
+- [ ] 민감 데이터 암호화
+- [ ] 로그에 PII 노출 없음
+- [ ] SQL Injection 방지 (Prepared Statement)
+- [ ] XSS 방지 (입력 검증)
+
+---
+
+## Pre-Commit Checklist
+
+```bash
+# 컴파일
+./gradlew compileJava
+
+# 테스트
+./gradlew test
+
+# 린트 (있는 경우)
+./gradlew spotlessCheck
+```
+
+### Architecture Checklist
+
+- [ ] 레이어 간 순환 의존성 없음
+- [ ] Domain은 외부 의존성 없음
+- [ ] `@Transactional`은 Service 레벨에서만
