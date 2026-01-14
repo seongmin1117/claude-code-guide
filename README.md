@@ -69,7 +69,7 @@ your-project/
 └── src/
 ```
 
-> **Note**: `CLAUDE.md`는 프로젝트 루트 또는 `.claude/` 디렉토리에 위치할 수 있습니다.
+> **Note**: `CLAUDE.md`는 프로젝트 루트에 두는 것을 권장합니다. (`.claude/` 디렉토리에도 가능하나 가시성이 떨어짐)
 
 ---
 
@@ -92,7 +92,7 @@ git clone https://github.com/seongmin1117/claude-code-guide.git
 mkdir -p .claude/commands .claude/agents
 
 # 템플릿 복사 (이 저장소에서)
-cp templates/.claude/CLAUDE.md.template CLAUDE.md
+cp templates/CLAUDE.md.template CLAUDE.md
 cp templates/.claude/PROGRESS.md.template .claude/PROGRESS.md
 ```
 
@@ -371,18 +371,18 @@ Clean Architecture 레이어 규칙 준수
 
 ```
 templates/
-├── .claude/
-│   ├── CLAUDE.md.template       # 프로젝트 개요
-│   ├── PROGRESS.md.template     # 진행 상황 추적
-│   ├── CONVENTIONS.md.template  # 코딩 규칙
-│   ├── settings.json.template   # 권한 설정
-│   ├── commands/
-│   │   ├── build.md.template    # 빌드 명령어
-│   │   ├── test.md.template     # 테스트 명령어
-│   │   └── review.md.template   # 코드 리뷰
-│   └── agents/
-│       ├── code-reviewer.md.template   # 코드 리뷰어
-│       └── test-generator.md.template  # 테스트 작성자
+├── CLAUDE.md.template           # 프로젝트 개요 (루트에 복사)
+└── .claude/
+    ├── PROGRESS.md.template     # 진행 상황 추적
+    ├── CONVENTIONS.md.template  # 코딩 규칙
+    ├── settings.json.template   # 권한 설정
+    ├── commands/
+    │   ├── build.md.template    # 빌드 명령어
+    │   ├── test.md.template     # 테스트 명령어
+    │   └── review.md.template   # 코드 리뷰
+    └── agents/
+        ├── code-reviewer.md.template   # 코드 리뷰어
+        └── test-generator.md.template  # 테스트 작성자
 ```
 
 ---

@@ -36,8 +36,9 @@ cat .claude/PROGRESS.md
 
 ```
 project-root/
-├── .claude/                    # Claude Code 컨텍스트
-│   ├── CLAUDE.md               # 프로젝트 개요 (이 파일)
+├── CLAUDE.md                   # 프로젝트 개요 (이 파일, 자동 로드)
+├── README.md
+├── .claude/                    # Claude Code 보조 파일
 │   ├── PROGRESS.md             # 진행 상황 추적
 │   └── CONVENTIONS.md          # 코딩 규칙
 ├── src/
@@ -46,8 +47,7 @@ project-root/
 │   │   └── resources/
 │   └── test/
 ├── docs/                       # 문서
-├── [빌드 설정 파일]
-└── README.md
+└── [빌드 설정 파일]
 ```
 
 ---

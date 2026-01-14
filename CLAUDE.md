@@ -28,16 +28,16 @@ cat .claude/PROGRESS.md
 
 ```
 claude-code-guide/
-├── .claude/                    # 이 프로젝트의 Claude Code 컨텍스트
-│   ├── CLAUDE.md               # 프로젝트 개요 (이 파일)
-│   └── PROGRESS.md             # 업데이트 이력/로드맵
-│
+├── CLAUDE.md                   # 프로젝트 개요 (이 파일, 자동 로드)
 ├── README.md                   # 전체 가이드 (설치/사용법)
 ├── install.sh                  # 자동 설치 스크립트
 │
+├── .claude/                    # Claude Code 보조 파일
+│   └── PROGRESS.md             # 업데이트 이력/로드맵
+│
 ├── templates/                  # 복사해서 사용하는 템플릿
+│   ├── CLAUDE.md.template      # 프로젝트 개요 템플릿
 │   └── .claude/
-│       ├── CLAUDE.md.template
 │       ├── PROGRESS.md.template
 │       ├── CONVENTIONS.md.template
 │       ├── settings.json.template
@@ -46,17 +46,8 @@ claude-code-guide/
 │
 └── docs/                       # 상세 문서
     ├── changelog/              # 업데이트 내역/패치노트
-    │   └── README.md
     ├── features/               # 기능별 상세 가이드
-    │   ├── skills.md           # Skills 시스템
-    │   ├── mcp.md              # MCP 연동
-    │   ├── hooks.md            # Hooks 자동화
-    │   ├── plugins.md          # Plugins 시스템
-    │   ├── commands.md         # 커스텀 명령어
-    │   └── agents.md           # 서브에이전트
     └── resources/              # 외부 리소스
-        ├── korean-blogs.md     # 한국어 블로그/가이드
-        └── README.md
 ```
 
 ---

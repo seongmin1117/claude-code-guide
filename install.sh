@@ -43,8 +43,8 @@ copy_template() {
 echo ""
 echo "📄 템플릿 복사 중..."
 
-# 핵심 파일들
-copy_template "$TEMPLATES_DIR/.claude/CLAUDE.md.template" "$CLAUDE_DIR/CLAUDE.md"
+# 핵심 파일들 (CLAUDE.md는 프로젝트 루트에 배치)
+copy_template "$TEMPLATES_DIR/CLAUDE.md.template" "$TARGET_DIR/CLAUDE.md"
 copy_template "$TEMPLATES_DIR/.claude/PROGRESS.md.template" "$CLAUDE_DIR/PROGRESS.md"
 copy_template "$TEMPLATES_DIR/.claude/CONVENTIONS.md.template" "$CLAUDE_DIR/CONVENTIONS.md"
 copy_template "$TEMPLATES_DIR/.claude/settings.json.template" "$CLAUDE_DIR/settings.json"
@@ -105,9 +105,9 @@ echo ""
 echo "✨ 설정 완료!"
 echo ""
 echo "다음 단계:"
-echo "  1. .claude/CLAUDE.md 파일을 프로젝트에 맞게 수정하세요"
+echo "  1. CLAUDE.md 파일을 프로젝트에 맞게 수정하세요"
 echo "  2. .claude/PROGRESS.md 파일을 현재 진행 상황에 맞게 수정하세요"
 echo "  3. .claude/CONVENTIONS.md 파일을 팀 규칙에 맞게 수정하세요"
-echo "  4. git add .claude/ && git commit -m 'chore: Claude Code 컨텍스트 설정 추가'"
+echo "  4. git add CLAUDE.md .claude/ && git commit -m 'chore: Claude Code 컨텍스트 설정 추가'"
 echo ""
 echo "Claude Code 세션에서 'PROGRESS.md 읽고 현재 상황 파악해줘'라고 시작하세요!"

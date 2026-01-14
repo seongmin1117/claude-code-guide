@@ -100,7 +100,7 @@ src/test/java/com/example/
 | 목적 | 파일 |
 |------|------|
 | **이 파일** | `.claude/PROGRESS.md` |
-| 프로젝트 컨텍스트 | `.claude/CLAUDE.md` |
+| 프로젝트 컨텍스트 | `CLAUDE.md` |
 | 커밋 컨벤션 | `.claude/CONVENTIONS.md` |
 | API 문서 | `docs/API.md` |
 

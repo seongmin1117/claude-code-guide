@@ -30,18 +30,19 @@
 ### 파일 위치
 
 ```
-.claude/
-├── CLAUDE.md           # 프로젝트 컨텍스트 (자동 로드)
-├── PROGRESS.md         # 진행 상황 (수동 참조)
-├── settings.json       # 권한, 훅, MCP 설정
-├── commands/           # 슬래시 명령어
-│   └── *.md
-├── skills/             # 스킬 정의
-│   └── *.md
-├── agents/             # 서브에이전트
-│   └── *.md
-└── hooks/              # 훅 스크립트
-    └── *.sh
+project-root/
+├── CLAUDE.md           # 프로젝트 컨텍스트 (자동 로드, 루트 권장)
+└── .claude/
+    ├── PROGRESS.md     # 진행 상황 (수동 참조)
+    ├── settings.json   # 권한, 훅, MCP 설정
+    ├── commands/       # 슬래시 명령어
+    │   └── *.md
+    ├── skills/         # 스킬 정의
+    │   └── *.md
+    ├── agents/         # 서브에이전트
+    │   └── *.md
+    └── hooks/          # 훅 스크립트
+        └── *.sh
 ```
 
 ## 추천 조합
